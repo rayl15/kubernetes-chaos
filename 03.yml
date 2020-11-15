@@ -1,0 +1,29 @@
+---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: chaos
+      labels:
+        app: chaos
+    spec:
+      selector:
+        matchLabels:
+          app: chaos
+      template:
+        metadata:
+          labels:
+            app: chaos
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+            ports:
+            - containerPort: 80
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 80
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 80
